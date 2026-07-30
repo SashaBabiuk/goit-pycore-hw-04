@@ -1,6 +1,6 @@
 import sys
 from pathlib import Path
-from colorama import Fore, Back, Style, init
+from colorama import Fore,init
 
 init(autoreset=True)
 
