@@ -7,6 +7,14 @@ def parse_input(user_input: str) -> tuple[str, list[str]]:
     return command.lower(), args
 
 
+def greeting(command: str) -> str:
+    return "How can I help you?"
+
+
+def close_bot(command: str) -> str:
+    return "Good bye!"
+
+
 def add_contact(
     name: str,
     phone: str,
@@ -49,10 +57,10 @@ def show_phone(name: str, contacts: dict[str, str]) -> str:
         return contacts[name]
 
     similar_names = get_close_matches(
-        name,               # The value we want to find a similar match for
-        contacts.keys(),    # The collection of available contact names
+        name,               # The value to find a similar match for
+        contacts.keys(),    # Available contact names
         n=1,                # Maximum number of matches to return
-        cutoff=0.6          # Minimum similarity level from 0.0 to 1.0
+        cutoff=0.6          # Minimum similarity from 0.0 to 1.0
     )
 
     if similar_names:
@@ -86,11 +94,11 @@ def main():
 
         match command:
             case "close" | "exit":
-                print("Good bye!")
+                print(close_bot(command))
                 break
 
             case "hello":
-                print("How can I help you?")
+                print(greeting(command))
 
             case "add":
                 if len(args) != 2:
