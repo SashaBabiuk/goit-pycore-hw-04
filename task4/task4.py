@@ -16,10 +16,14 @@ def close_bot(command: str) -> str:
 
 
 def add_contact(
-    name: str,
-    phone: str,
+    args: list[str],
     contacts: dict[str, str]
 ) -> str:
+    if len(args) != 2:
+        return "Enter: add username phone"
+
+    name, phone = args
+
     if name in contacts:
         return (
             "Contact already exists. "
@@ -36,10 +40,14 @@ def add_contact(
 
 
 def change_contact(
-    name: str,
-    phone: str,
+    args: list[str],
     contacts: dict[str, str]
 ) -> str:
+    if len(args) != 2:
+        return "Enter: change username phone"
+
+    name, phone = args
+
     if name not in contacts:
         return "Contact not found."
 
@@ -52,7 +60,12 @@ def change_contact(
     return "Contact updated."
 
 
-def show_phone(name: str, contacts: dict[str, str]) -> str:
+def show_phone(args: list[str], contacts: dict[str, str]) -> str:
+    if len(args) != 1:
+        return "Enter: phone username"
+
+    name = args[0]
+
     if name in contacts:
         return contacts[name]
 
@@ -101,27 +114,13 @@ def main():
                 print(greeting(command))
 
             case "add":
-                if len(args) != 2:
-                    print("Enter: add username phone")
-                    continue
-
-                name, phone = args
-                print(add_contact(name, phone, contacts))
+                print(add_contact(args, contacts))
 
             case "change":
-                if len(args) != 2:
-                    print("Enter: change username phone")
-                    continue
-
-                name, phone = args
-                print(change_contact(name, phone, contacts))
+                print(change_contact(args, contacts))
 
             case "phone":
-                if len(args) != 1:
-                    print("Enter: phone username")
-                    continue
-
-                print(show_phone(args[0], contacts))
+                print(show_phone(args, contacts))
 
             case "all":
                 print(show_all(contacts))
